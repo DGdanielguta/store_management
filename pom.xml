@@ -12,7 +12,7 @@
 	<artifactId>store_management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>store_management</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for simulating a store management tool for managing inventory and sales. This is just an exercise.</description>
 	<url/>
 	<licenses>
 		<license/>
