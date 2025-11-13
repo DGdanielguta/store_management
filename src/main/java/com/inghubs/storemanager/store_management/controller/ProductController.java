@@ -3,9 +3,11 @@ package com.inghubs.storemanager.store_management.controller;
 import com.inghubs.storemanager.store_management.data.entity.Product;
 import com.inghubs.storemanager.store_management.service.ProductService;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,35 +40,37 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public Product createProduct(@Valid @RequestBody CreateProductRequest request) {
         log.info("Create product request received: {}", request);
         return productService.createProduct(request.name(), request.price(), request.quantity());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public Product getProductById(@Min(1) Long id) {
+    //@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public Product getProductById(@PathVariable @Min(1) Long id) {
         log.info("Get product by id request received: id={}", id);
         return productService.getProductById(id);
     }
 
     @GetMapping("/name/{name}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public Product getProductByName(@NotBlank String name) {
+    //@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public Product getProductByName(@PathVariable@NotBlank String name) {
         log.info("Get product by name request received: name={}", name);
         return productService.getProductByName(name);
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    //@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public java.util.List<Product> getAllProducts() {
         log.info("Get all products request received");
         return productService.getAllProducts();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteProduct(@Min(1) Long id) {
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    //@PreAuthorize("hasRole('ADMIN')")
+    public void deleteProduct(@PathVariable @Min(1) Long id) {
         log.info("Delete product request received: id={}", id);
         productService.deleteProduct(id);
     }
