@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: store_management
+logging:
+  level:
+    root: INFO
+    #org.springframework.web: DEBUG
+    com.inghubs.storemanager.store_management: DEBUG
